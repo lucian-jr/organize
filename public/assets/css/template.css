@@ -10,7 +10,9 @@
     --medium-black: #171717;
     --deep-gray: #1E1E1E;
     --medium-gray: #2C2C2C;
+    --soft-gray: #5c5c5c;
     --orange: #ee9200;
+    --dsText:#dddddd;
 }
 
 /***************** Animations *****************/
@@ -284,6 +286,10 @@ a.floating-whats {
     margin-left: 10px !important;
 }
 
+.mg-lft-25 {
+    margin-left: 25px !important;
+}
+
 .mg-lft-20 {
     margin-left: 20px !important;
 }
@@ -480,25 +486,29 @@ a.floating-whats {
     position: absolute;
 }
 
-.row {
-    margin-bottom: 10px;
-}
-
-.row input,
-.row select {
-    height: 46px;
-    padding-left: 15px;
+input,
+select {
+    height: 36px;
+    padding: 10px;
     background-color: #fff;
     color: #000;
     margin: 0 0;
     margin-right: 1%;
     border: none;
     appearance: auto;
+
+    border-radius: 5px;
 }
 
-.row input:last-of-type,
-.row select:last-of-type {
+input:last-of-type,
+select:last-of-type {
     margin-right: 0%;
+}
+
+textarea {
+    resize: none;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .flex-content-absolute {
@@ -594,6 +604,10 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+i {
+    color: var(--dsText);
+}
+
 /***************** HTML Template *****************/
 main {
     width: 100%;
@@ -609,7 +623,7 @@ nav {
     background-color: #171717;
 }
 
-nav .nav-links a {
+nav .nav-links a, nav .nav-links span {
     height: 40px;
     border-radius: 3px;
 
@@ -617,9 +631,10 @@ nav .nav-links a {
 
     color: #ffffff;
     transition: ease-in-out 0.5s;
+    cursor: pointer;
 }
 
-nav .nav-links a:hover {
+nav .nav-links a:hover, nav .nav-links span:hover {
     background-color: var(--medium-gray);
 }
 
@@ -638,17 +653,23 @@ nav .nav-links a:hover {
 }
 
 .card {
-    width: calc(270px - 20px);
-    height: 320px;
-
+    width: calc(300px - 20px);
+    height: 200px;
     margin: 10px;
+
     padding: 20px 20px;
     border-radius: 5px;
- 
-    background-color: #5c5c5c;
 
+    background-color: var(--soft-gray);
     transition: ease-in-out 0.4s;
     cursor: pointer;
+}
+
+.card.open-task-form {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card:hover {
@@ -659,11 +680,68 @@ nav .nav-links a:hover {
 
 .card h3 {
     font-weight: 800;
-    color: #ffffff;
+    color: var(--dsText);
 }
 
 .card p {
-    color: #ffffff;
+    color: var(--dsText);
+}
+
+.shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgb(0 0 0 / 70%);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+    -webkit-backface-visibility: hidden;
+}
+
+.shadow .pop-up-content {
+    position: relative;
+
+    width: 768px;
+    min-height: 500px;
+    height: auto;
+    border-radius: 5px;
+
+    padding: 20px;
+    padding-top: 50px;
+
+    background-color: var(--soft-gray);
+}
+
+.shadow .pop-up-content .close-task-form {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    cursor: pointer;
+
+    color: var(--dsText);
+}
+
+.shadow .pop-up-content h3 {
+    color: var(--dsText);
+}
+
+form button[type="submit"] {
+    padding: 10px 30px;
+    border-radius: 5px;
+    
+    font-size: 14px;
+    font-weight: 600;
+
+    background-color: var(--orange);
+    color: var(--dsText);
 }
 
 /***************** Media query *****************/
