@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Sao_Paulo'); 
+
 spl_autoload_register(function ($className) {
     $classPath = '../app/models/' . $className . '.php';
 

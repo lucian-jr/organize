@@ -8,7 +8,7 @@
 
     <div class="nav-links flex flex-column">
         <a href="#home" class="mg-btm-10">Início</a>
-        <span class="mg-btm-10 open-task-form">Cadastrar tarefa</span>
+        <span class="mg-btm-10 open-task-form" data-form-type="add">Cadastrar tarefa</span>
         <span class="mg-btm-10">Sobre</span>
     </div>
 </nav>

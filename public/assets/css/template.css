@@ -10,9 +10,13 @@
     --medium-black: #171717;
     --deep-gray: #1E1E1E;
     --medium-gray: #2C2C2C;
-    --soft-gray: #5c5c5c;
+    --soft-gray: #424242;
+    --gray: #5c5c5c;
     --orange: #ee9200;
     --dsText:#dddddd;
+    --red: #dc2626;
+    --soft-red: #f87171;
+    --green: #16a34a;
 }
 
 /***************** Animations *****************/
@@ -69,6 +73,8 @@ body {
     overflow-x: hidden;
     font-weight: 400;
     background-attachment: scroll;
+
+    overflow-y: hidden;
 }
 
 a {
@@ -94,7 +100,7 @@ hr {
     position: relative;
     border-style: solid;
     border-width: 1px 0 0 0;
-    border-color: #CCC;
+    border-color: #ffffff59;
 }
 
 .container {
@@ -486,31 +492,6 @@ a.floating-whats {
     position: absolute;
 }
 
-input,
-select {
-    height: 36px;
-    padding: 10px;
-    background-color: #fff;
-    color: #000;
-    margin: 0 0;
-    margin-right: 1%;
-    border: none;
-    appearance: auto;
-
-    border-radius: 5px;
-}
-
-input:last-of-type,
-select:last-of-type {
-    margin-right: 0%;
-}
-
-textarea {
-    resize: none;
-    border-radius: 5px;
-    padding: 5px;
-}
-
 .flex-content-absolute {
     width: 100%;
 }
@@ -529,6 +510,39 @@ textarea {
 
 .flex-content-tiny {
     width: 17.5%;
+}
+
+input,
+select {
+    height: 36px;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    margin: 0 0;
+    margin-right: 1%;
+    border: none;
+    appearance: auto;
+
+    border-radius: 5px;
+}
+
+input:last-of-type,
+select:last-of-type {
+    margin-right: 0%;
+}
+
+textarea {
+    resize: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+label.defautl-label {
+    margin-bottom: 5px;
+    color: var(--dsText);
+    font-size: 12px;
 }
 
 input[type="radio"] {
@@ -604,7 +618,7 @@ button[type="submit"] {
     cursor: pointer;
 }
 
-i {
+h2, h3, h4, i, p {
     color: var(--dsText);
 }
 
@@ -645,6 +659,42 @@ nav .nav-links a:hover, nav .nav-links span:hover {
     background-color: var(--medium-gray);
 
     padding: 20px 40px;
+
+    overflow-y: auto;
+}
+
+.page-content::-webkit-scrollbar {
+    width: 9px;
+}
+
+.page-content::-webkit-scrollbar-thumb {
+    background-color: var(--orange);
+}
+
+.page-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.filter-area .search-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.filter-area .search-content .search-icon {
+    position: absolute;
+    left: 5px;
+    color: var(--black);
+}
+
+.filter-area .search-content #search {
+    padding-left: 27px;
+    max-width: 209px;
+}
+
+.cards-container[data-type="completed"] {
+    display: none;
+    flex-wrap: wrap;
 }
 
 .cards-container {
@@ -653,16 +703,39 @@ nav .nav-links a:hover, nav .nav-links span:hover {
 }
 
 .card {
-    width: calc(300px - 20px);
-    height: 200px;
+    position: relative;
+
+    width: calc(297px - 20px);
+    height: 130px;
     margin: 10px;
 
     padding: 20px 20px;
     border-radius: 5px;
 
-    background-color: var(--soft-gray);
+    background-color: var(--gray);
     transition: ease-in-out 0.4s;
     cursor: pointer;
+}
+
+.card .tag {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.card .tag.green {
+    background-color: var(--green);
+}
+
+.card .tag.orange {
+    background-color: var(--orange);
+}
+
+.card .tag.red {
+    background-color: var(--red);
 }
 
 .card.open-task-form {
@@ -680,11 +753,33 @@ nav .nav-links a:hover, nav .nav-links span:hover {
 
 .card h3 {
     font-weight: 800;
-    color: var(--dsText);
+  
+}
+
+.card .delete-task {
+    display: none;
+
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 10px;
+
+    cursor: pointer;
+
+    color: var(--soft-red);
+    z-index: 1;
+}
+
+.card:hover .delete-task {
+    display: block;
+}
+
+.card .delete-task:hover {
+    color: var(--red);
 }
 
 .card p {
-    color: var(--dsText);
+  
 }
 
 .shadow {
@@ -703,6 +798,8 @@ nav .nav-links a:hover, nav .nav-links span:hover {
 
     z-index: 10;
     -webkit-backface-visibility: hidden;
+
+    overflow-y: auto;
 }
 
 .shadow .pop-up-content {
@@ -714,23 +811,37 @@ nav .nav-links a:hover, nav .nav-links span:hover {
     border-radius: 5px;
 
     padding: 20px;
-    padding-top: 50px;
+    padding-top: 20px;
 
-    background-color: var(--soft-gray);
+    background-color: var(--gray);
 }
 
 .shadow .pop-up-content .close-task-form {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0px;
+    top: 0px;
+    padding: 10px;
 
     cursor: pointer;
 
     color: var(--dsText);
 }
 
-.shadow .pop-up-content h3 {
+.shadow .pop-up-content input, .shadow .pop-up-content textarea {
+    background-color: var(--soft-gray);
     color: var(--dsText);
+}
+
+.shadow .pop-up-content input::placeholder, .shadow .pop-up-content textarea::placeholder {
+    color: var(--dsText);
+}
+
+/* .shadow .pop-up-content #title-task {
+    background-color: transparent;
+} */
+
+.shadow .pop-up-content #title-task:focus {
+    background-color: var(--soft-gray);
 }
 
 form button[type="submit"] {

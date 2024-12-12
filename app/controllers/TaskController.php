@@ -27,12 +27,26 @@ class TaskController {
     }
 
     public function insert() {
-        $id = $_GET['id'];
-        
-        $task = $this->tasks_model->get($id);
+        header('Content-Type: application/json');
+        $insert = false;
 
-        if($task) {
-            print_r($task);
+        if($_POST['title'] && $_POST['description'] && $_POST['estimated_end_date']) {
+            $data = $_POST;
+
+            $insert = $this->tasks_model->insert($data);
+        }
+    
+        if($insert) {
+            return print_r(json_encode([
+                'status' => 200,
+                'inserted_id' => $insert,
+                'message' => 'Registro inserido com sucesso!'
+            ]));
+        } else {
+            return print_r(json_encode([
+                'status' => 400,
+                'message' => 'Houve um problema! A requisição não foi feita de forma correta.'
+            ])); 
         }
     }
 
@@ -42,7 +56,7 @@ class TaskController {
         $id = $_GET['id'];
 
         if($id) {
-            $removedTask = $this->tasks_model->removeTask($id);
+            $removedTask = $this->tasks_model->remove($id);
 
             if($removedTask == true) {
                 return print_r(json_encode([

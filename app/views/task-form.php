@@ -3,8 +3,12 @@
         <form id="taskForm">
             <i class="fa-solid fa-x close-task-form"></i>
 
-            <div class="header mg-btm-30">
-                <input type="text" name="title" id="title-task" class="width-100">
+            <hgroup class="flex align-center mg-btm-30">
+                <h2 class="toggle-title"></h2>
+            </hgroup>
+
+            <div class="header flex align-center mg-btm-30">
+                <input type="text" name="title" id="title-task" class="width-100 fs-18 text-bold field" placeholder="TÍTULO DA TAREFA">
             </div>
 
             <div class="body mg-btm-30">
@@ -19,7 +23,7 @@
                 </div>
              
                 <div class="flex mg-lft-25">
-                    <textarea name="description" id="description" class="width-100" rows="10"></textarea>
+                    <textarea name="description" id="description" class="width-100 field" rows="10"></textarea>
                 </div>
             </div>
 
@@ -35,8 +39,7 @@
                 </div>
 
                 <div class="flex mg-lft-25">
-                    <input type="date">
-                    <input type="hour">
+                    <input name="estimated_end_date" type="date" class="field">
                 </div>
             </div>
 

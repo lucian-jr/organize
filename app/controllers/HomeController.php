@@ -4,8 +4,8 @@ class HomeController {
     public function index() {
 
         $tasks_model = new Tasks();
-        $tasks = $tasks_model->getAllTasks();
-
+        $uncompleted_tasks= $tasks_model->getAllTasks(0);
+        $completed_tasks = $tasks_model->getAllTasks(1);
     
         require_once '../app/views/templates/header.php';
         require_once '../app/views/templates/menu.php';
