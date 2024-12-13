@@ -3,7 +3,10 @@
 class HomeController {
     public function index() {
 
+        // Chamando a model Tasks()
         $tasks_model = new Tasks();
+
+        // Utilizando funções da model para receber os registros das tasks
         $uncompleted_tasks= $tasks_model->getAllTasks(0);
         $completed_tasks = $tasks_model->getAllTasks(1);
     

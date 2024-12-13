@@ -4,6 +4,7 @@
 
 <section class="page-content">
 
+    <!-- Legenda de cores -->
     <div class="tags-orientation mg-btm-20">
         <hgroup class="flex align-center mg-btm-10">
             <i class="fa-solid fa-circle-info mg-rgt-5"></i>
@@ -29,6 +30,7 @@
         </div>
     </div>
 
+    <!-- Filtrar -->
     <div class="filter-area mg-btm-20">
         <hgroup class="flex align-center mg-btm-10">
             <i class="fa-solid fa-filter mg-rgt-5"></i>
@@ -48,6 +50,7 @@
 
     <hr class="mg-btm-30 width-100">
 
+    <!-- Conteúdo das tarefas incompletas -->
     <div class="cards-container" data-type="uncompleted">
         <?php if (!empty($uncompleted_tasks)) : ?>
             <?php foreach($uncompleted_tasks as $task): 
@@ -79,6 +82,7 @@
         </div>
     </div>
 
+    <!-- Conteúdo das tarefas completas -->
     <div class="cards-container display-none" data-type="completed">
         <?php if (!empty($completed_tasks)) : ?>
             <?php foreach($completed_tasks as $task): ?>

@@ -10,6 +10,7 @@ const task = {
 let form_type = 'add';
 let task_id = null;
 
+// Manipula as ações após clicar em uma tarefa
 const openTaskForm = async ({ currentTarget }) => {
     const formType = $(currentTarget).attr('data-form-type');
 
@@ -64,6 +65,7 @@ const openTaskForm = async ({ currentTarget }) => {
     }
 }
 
+// Validação dos campos do form
 const formFieldsValidation = (form) => {
     form.preventDefault();
 
@@ -88,6 +90,7 @@ const formFieldsValidation = (form) => {
     }
 }
 
+// Aplica as regras para submissão do form em modo "adicionar" e "edição"
 const submitTaskForm = async () => {
 
     if (form_type == 'add') {
@@ -186,6 +189,7 @@ const submitTaskForm = async () => {
     }
 }
 
+// Remoção de uma "tarefa"
 const deleteTask = async ({ currentTarget }) => {
     const taskCard = $(currentTarget);
     const id = taskCard.attr('data-id');
@@ -244,6 +248,7 @@ const deleteTask = async ({ currentTarget }) => {
     });
 }
 
+// Troca os tipos de "tarefas" de acordo com o selecionado
 const toggleTypeTask = ({ currentTarget }) => {
     const typeVal = $(currentTarget).val();
 
@@ -254,17 +259,21 @@ const toggleTypeTask = ({ currentTarget }) => {
     }
 }
 
+// Desabilita o botão de submit no form de edição de "tarefa"
 const toggleSubmitButton = () => {
     if (form_type == 'edit') {
         $('.send-data').removeClass('disabled');
     }
 }
 
+// Remove o outline dos inputs com alerta de "vazios"
 const removeRedOutline = ({currentTarget}) => {
     $(currentTarget).css({'outline' : 'none'})
 }
 
+// Carrega o conteudo da DOM
 document.addEventListener('DOMContentLoaded', () => {
+    // Chamando as funções acima de acordo com cada ação
     $('body').on('click', '.close-task-form', function () {
         $('.shadow').fadeOut();
     });
@@ -275,3 +284,13 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.field').on('change', toggleSubmitButton);
     $('.field').on('click', removeRedOutline);
 });
+
+// Reseta as informações da "tarefa"
+function resetTaskInfos() {
+    task_id = null;
+    task.title = null;
+    task.description = null,
+    task.completed = null;
+    task.estimated_end_date = null;
+    task.end_date = null;
+}

@@ -11,6 +11,15 @@ class Tasks
         $this->db = new Database();
     }
 
+    public function getAllTasks($completed)
+    {
+        $sql = "SELECT * FROM tasks WHERE completed = $completed ORDER BY id DESC";
+        $stmt = $this->db->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function get($id)
     {
         $sql = "SELECT * FROM tasks WHERE id = :id";
@@ -22,15 +31,6 @@ class Tasks
         } else {
             return false;
         }
-    }
-
-    public function getAllTasks($completed)
-    {
-        $sql = "SELECT * FROM tasks WHERE completed = $completed ORDER BY id DESC";
-        $stmt = $this->db->getConnection()->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function remove()

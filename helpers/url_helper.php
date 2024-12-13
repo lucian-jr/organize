@@ -1,5 +1,6 @@
 <?php
-
+	// Funções de URL
+	
 	function base_url($uri = '', $protocol = null)
 	{
 		$protocol = $protocol ?? ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http');
