@@ -1,10 +1,22 @@
 <div class="shadow">
     <section class="pop-up-content">
-        <span id="formTag" class="tag box-shadow"></span>
+        <span id="formTag" class="tag box-shadow edit-content"></span>
 
         <form id="taskForm">
             <i class="fa-solid fa-x close-task-form"></i>
-            <i class="fa-solid fa-trash delete-task" data-id=""></i>
+
+            <div class="flex content-space-between align-center edit-content">
+                <div class="width-33">
+                    <i class="fa-solid fa-trash delete-task" data-id=""></i>
+                </div>
+  
+                <div class="width-33">
+                    <p>Registro: <strong class="registered_date"></strong></p>
+                </div>
+
+                <div class="width-33"></div>
+            </div>
+            
 
             <hgroup class="flex align-center mg-btm-30">
                 <h2 class="toggle-title"></h2>

@@ -2,7 +2,7 @@ function resetTaskInfos() {
     task_id = null;
     task.title = null;
     task.description = null,
-        task.completed = null;
+    task.completed = null;
     task.estimated_end_date = null;
     task.end_date = null;
 }
@@ -12,6 +12,29 @@ function formataData(data) {
     const dataFormatada = partesData.reverse().join('/');
 
     return dataFormatada;
+}
+
+function formataDataHora(dataHora) {
+    const data = new Date(dataHora);
+
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    const horas = String(data.getHours()).padStart(2, '0');
+    const minutos = String(data.getMinutes()).padStart(2, '0');
+
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+}
+
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const currentDate = `${year}-${month}-${day}`;
+
+    return currentDate;
 }
 
 function countDays(initDate, endDate) {
@@ -24,13 +47,7 @@ function countDays(initDate, endDate) {
 }
 
 function getTag(estimated_end_date) {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // `getMonth` retorna 0 para janeiro
-    const day = String(today.getDate()).padStart(2, '0');
-
-    const currentData = `${year}-${month}-${day}`;
-    const days = countDays(currentData, estimated_end_date);
+    const days = countDays(getCurrentDate(), estimated_end_date);
     let cardTagColor = '';
 
     if (days > 5) {

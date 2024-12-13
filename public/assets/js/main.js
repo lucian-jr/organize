@@ -20,8 +20,7 @@ const openTaskForm = async ({ currentTarget }) => {
 
         $('.shadow').fadeIn().css('display', 'flex');
         $('.toggle-title').html('Crie uma nova tarefa');
-        $('#taskForm .delete-task').hide();
-        $('#formTag').hide();
+        $('.edit-content').hide();
         $('#completed').addClass('hidden');
         $('.field').val('');
         $('.send-data').html('SALVAR').removeClass('disabled');
@@ -35,7 +34,7 @@ const openTaskForm = async ({ currentTarget }) => {
 
         $('.toggle-title').html('');
         $('#taskForm .delete-task').attr('data-id', id).show();
-        $('#formTag').show();
+        $('.edit-content').show();
         $('#completed').removeClass('hidden');
         $('.send-data').html('SALVAR').addClass('disabled');
 
@@ -52,12 +51,13 @@ const openTaskForm = async ({ currentTarget }) => {
             const data = result.data;
             const tagColorClass = getTag(data.estimated_end_date);
 
+            $(".registered_date").html(formataDataHora(data.registered_date_hour));
             $("#title-task").val(data.title);
             if (data.description) $("#description").val(data.description);
             $("#completed").val(data.completed);
             if (data.estimated_end_date) $("#estimated_end_date").val(data.estimated_end_date);
 
-            $('#formTag.tag').removeClass('green yellow red').addClass(tagColorClass);
+            $('#formTag.tag').removeClass('green orange red').addClass(tagColorClass);
             $('.shadow').fadeIn().css('display', 'flex');
         }
 
@@ -107,6 +107,7 @@ const submitTaskForm = async () => {
 
         if (result.status == 200) {
             const tagColorClass = getTag(task.estimated_end_date);
+            const daysRemaining = countDays(getCurrentDate(), task.estimated_end_date);
 
             const taskCard = ` 
                 <div class="card box-shadow open-task-form" data-id="${result.inserted_id}" data-form-type="edit">
@@ -114,7 +115,7 @@ const submitTaskForm = async () => {
                     <h3 class="mg-btm-20">${task.title}</h3>
                     <div class="flex align-center">
                         <i class="fa-solid fa-hourglass-half mg-rgt-5"></i>
-                        <p>${formataData(task.estimated_end_date)}</p>
+                        <p>${formataData(task.estimated_end_date)} - ${daysRemaining} dias</p>
                     </div>
                 </div>
             `;
@@ -152,10 +153,10 @@ const submitTaskForm = async () => {
             if (data.completed == 1) {
                 const taskCard = ` 
                     <div class="card box-shadow" data-id="${task_id}">
+                        <i class="fa-solid fa-trash delete-task" data-id="${task_id}"></i>
                         <h3 class="mg-btm-20">${data.title}</h3>
-                        <div class="flex align-center">
-                            <i class="fa-solid fa-trash delete-task" data-id="${task_id}"></i>
-                            <i class="fa-solid fa-hourglass-end mg-rgt-5"></i>
+                        <div class="flex align-center finished-date">
+                            <i class="fa-solid fa-regular fa-clock mg-rgt-5"></i>
                             <p>${formataData(data.end_date)}</p>
                         </div>
                     </div>
@@ -259,15 +260,18 @@ const toggleSubmitButton = () => {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    $('body').on('click', '.open-task-form', openTaskForm);
+const removeRedOutline = ({currentTarget}) => {
+    $(currentTarget).css({'outline' : 'none'})
+}
 
+document.addEventListener('DOMContentLoaded', () => {
     $('body').on('click', '.close-task-form', function () {
         $('.shadow').fadeOut();
     });
-
-    $('#taskForm').on('submit', formFieldsValidation);
-    $('.field').on('change', toggleSubmitButton);
+    $('body').on('click', '.open-task-form', openTaskForm);
     $('body').on('click', '.delete-task', deleteTask);
+    $('#taskForm').on('submit', formFieldsValidation);
     $('#cards-type').on('change', toggleTypeTask);
+    $('.field').on('change', toggleSubmitButton);
+    $('.field').on('click', removeRedOutline);
 });

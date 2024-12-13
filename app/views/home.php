@@ -4,8 +4,33 @@
 
 <section class="page-content">
 
+    <div class="tags-orientation mg-btm-20">
+        <hgroup class="flex align-center mg-btm-10">
+            <i class="fa-solid fa-circle-info mg-rgt-5"></i>
+            <h3>Legenda de cores</h3>
+        </hgroup>
+
+        <div class="flex mg-btm-10">
+            <div class="tag green">
+                +5 dias p/ data final
+            </div>
+
+            <div class="tag orange">
+                3-5 dias p/ data final
+            </div>
+
+            <div class="tag red">
+                Próximo da data final
+            </div>
+
+            <div class="tag lemon-green">
+                Data de finalização
+            </div>
+        </div>
+    </div>
+
     <div class="filter-area mg-btm-20">
-        <hgroup class="flex align-center mg-btm-15">
+        <hgroup class="flex align-center mg-btm-10">
             <i class="fa-solid fa-filter mg-rgt-5"></i>
             <h3>Filtrar</h3>
         </hgroup>
@@ -42,8 +67,8 @@
                     <span class="tag <?=$cardTagColor?> box-shadow"></span>
                     <h3 class="mg-btm-20"><?=$task->title?></h3>
                     <div class="flex align-center">
-                        <i class="fa-solid fa-hourglass-half mg-rgt-5"></i>
-                        <p><?=formataData($task->estimated_end_date)?></p>
+                        <i class="fa-regular fa-clock mg-rgt-5"></i>
+                        <p><?=formataData($task->estimated_end_date)?> - <?=$days?> dias</p>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -60,8 +85,8 @@
                 <div class="card box-shadow" data-id="<?=$task->id?>">
                     <i class="fa-solid fa-trash delete-task" data-id="<?=$task->id?>"></i>
                     <h3 class="mg-btm-20"><?=$task->title?></h3>
-                    <div class="flex align-center">
-                        <i class="fa-solid fa-hourglass-end mg-rgt-5"></i>
+                    <div class="flex align-center finished-date">
+                        <i class="fa-regular fa-clock mg-rgt-5"></i>
                         <p><?=formataData($task->end_date)?></p>
                     </div>
                 </div>
