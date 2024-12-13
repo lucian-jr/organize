@@ -7,24 +7,15 @@
     <div class="filter-area mg-btm-20">
         <hgroup class="flex align-center mg-btm-15">
             <i class="fa-solid fa-filter mg-rgt-5"></i>
-            <h3>Filtros</h3>
+            <h3>Filtrar</h3>
         </hgroup>
 
         <div class="flex">
-            <div class="flex flex-column flex-content-tiny mg-rgt-20">
-                <label class="defautl-label" for="cards-type">Tipo das tarefas</label>
-
-                <div class="search-content">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="search">
-                </div>
-            </div>
-
             <div class="flex flex-column flex-content-tiny">
-                <label class="defautl-label" for="cards-type">Pesquisar tarefas</label>
+                <label class="defautl-label" for="cards-type">Status</label>
                 <select name="cards-type" id="cards-type">
-                    <option value="uncompleted">Em andamento</option>
-                    <option value="completed">Finalizados</option>
+                    <option value="uncompleted">Tarefas em andamento</option>
+                    <option value="completed">Tarefas finalizadas</option>
                 </select>
             </div>
         </div>
@@ -47,20 +38,18 @@
                     $cardTagColor = 'red';
                 }
             ?>
-                <div class="card box-shadow" data-id="<?=$task->id?>">
+                <div class="card box-shadow open-task-form" data-id="<?=$task->id?>" data-form-type="edit">
                     <span class="tag <?=$cardTagColor?> box-shadow"></span>
-                    <i class="fa-solid fa-trash delete-task" data-id="<?=$task->id?>"></i>
                     <h3 class="mg-btm-20"><?=$task->title?></h3>
                     <div class="flex align-center">
                         <i class="fa-solid fa-hourglass-half mg-rgt-5"></i>
                         <p><?=formataData($task->estimated_end_date)?></p>
                     </div>
-                
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
-        <div class="card box-shadow open-task-form" data-form-type="add">
+        <div class="card add-task box-shadow open-task-form" data-form-type="add">
             <i class="fa-solid fa-plus fs-32"></i>
         </div>
     </div>

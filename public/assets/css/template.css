@@ -622,38 +622,47 @@ h2, h3, h4, i, p {
     color: var(--dsText);
 }
 
+.tag {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.tag.green {
+    background-color: var(--green);
+}
+
+.tag.orange {
+    background-color: var(--orange);
+}
+
+.tag.red {
+    background-color: var(--red);
+}
+
+.hidden {
+    display: none;
+}
+
 /***************** HTML Template *****************/
 main {
     width: 100%;
-    display: flex;
 }
 
 nav {
-    width: 250px;
-    height: 100vh;
+    width: 100vw;
+    /* height: 60px; */
 
-    padding: 20px;
+    padding: 10px;
 
     background-color: #171717;
 }
 
-nav .nav-links a, nav .nav-links span {
-    height: 40px;
-    border-radius: 3px;
-
-    padding: 10px;
-
-    color: #ffffff;
-    transition: ease-in-out 0.5s;
-    cursor: pointer;
-}
-
-nav .nav-links a:hover, nav .nav-links span:hover {
-    background-color: var(--medium-gray);
-}
-
 .page-content {
-    width: calc(100vw - 250px);
+    width: 100vw;
     height: 100vh;
 
     background-color: var(--medium-gray);
@@ -705,7 +714,11 @@ nav .nav-links a:hover, nav .nav-links span:hover {
 .card {
     position: relative;
 
-    width: calc(297px - 20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: calc(291px - 20px);
     height: 130px;
     margin: 10px;
 
@@ -715,37 +728,18 @@ nav .nav-links a:hover, nav .nav-links span:hover {
     background-color: var(--gray);
     transition: ease-in-out 0.4s;
     cursor: pointer;
+
+    overflow: hidden;
 }
 
-.card .tag {
-    display: flex;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 5px;
-}
-
-.card .tag.green {
-    background-color: var(--green);
-}
-
-.card .tag.orange {
-    background-color: var(--orange);
-}
-
-.card .tag.red {
-    background-color: var(--red);
-}
-
-.card.open-task-form {
+.card.add-task {
     background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.card:hover {
+.cards-container[data-type="uncompleted"] .card:hover {
     background-color: #4b4b4b; 
 
     scale: 1.02;
@@ -753,25 +747,15 @@ nav .nav-links a:hover, nav .nav-links span:hover {
 
 .card h3 {
     font-weight: 800;
-  
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card .delete-task {
-    display: none;
-
     position: absolute;
-    right: 0px;
-    bottom: 0px;
+    bottom: 0;
+    right: 0;
     padding: 10px;
-
-    cursor: pointer;
-
-    color: var(--soft-red);
-    z-index: 1;
-}
-
-.card:hover .delete-task {
-    display: block;
 }
 
 .card .delete-task:hover {
@@ -814,6 +798,8 @@ nav .nav-links a:hover, nav .nav-links span:hover {
     padding-top: 20px;
 
     background-color: var(--gray);
+
+    overflow: hidden;
 }
 
 .shadow .pop-up-content .close-task-form {
@@ -844,7 +830,15 @@ nav .nav-links a:hover, nav .nav-links span:hover {
     background-color: var(--soft-gray);
 }
 
-form button[type="submit"] {
+form#taskForm {
+    position: relative;
+}
+
+form#taskForm .tag {
+    top: -10px !important;
+}
+
+form#taskForm button[type="submit"] {
     padding: 10px 30px;
     border-radius: 5px;
     
@@ -854,6 +848,24 @@ form button[type="submit"] {
     background-color: var(--orange);
     color: var(--dsText);
 }
+
+
+form#taskForm button.send-data.disabled {
+    pointer-events: none;
+    background-color: #d1d1d1;
+    color: #000;
+}
+
+form#taskForm .delete-task {
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+form#taskForm .delete-task:hover {
+    color: var(--red);
+}
+
 
 /***************** Media query *****************/
 @media (max-width: 600px) {

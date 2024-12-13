@@ -11,19 +11,31 @@ class TaskController {
         
     }
 
-    public function show() {
+    public function get() {
+        header('Content-Type: application/json');
         $id = $_GET['id'];
+
+        if(!$id) {
+            return print_r(json_encode([
+                'status' => 400,
+                'message' => 'O registro não foi encontrado, tente novamente!'
+            ])); 
+        } 
         
         $task = $this->tasks_model->get($id);
 
         if($task) {
-            print_r($task);
+            return print_r(json_encode([
+                'status' => 200,
+                'data' => $task,
+                'message' => 'Registro encontrado com sucesso!'
+            ]));
+        } else {
+            return print_r(json_encode([
+                'status' => 400,
+                'message' => 'O registro não foi encontrado, tente novamente!'
+            ])); 
         }
-
-        require_once '../app/views/templates/header.php';
-        require_once '../app/views/templates/menu.php';
-        require_once '../app/views/form-task.php';
-        require_once '../app/views/templates/footer.php';
     }
 
     public function insert() {
@@ -41,6 +53,35 @@ class TaskController {
                 'status' => 200,
                 'inserted_id' => $insert,
                 'message' => 'Registro inserido com sucesso!'
+            ]));
+        } else {
+            return print_r(json_encode([
+                'status' => 400,
+                'message' => 'Houve um problema! A requisição não foi feita de forma correta.'
+            ])); 
+        }
+    }
+
+    public function update() {
+        header('Content-Type: application/json');
+        $id = $_GET['id'];
+        $insert = false;
+        $data = $_POST;
+
+        if($id) {
+
+            if($data['completed'] && !$data['end_date']) {
+                $data['end_date'] = date('Y-m-d');
+            }
+
+            $update = $this->tasks_model->update($data, $id);
+        }
+    
+        if($update) {
+            return print_r(json_encode([
+                'status' => 200,
+                'data' => $data,
+                'message' => 'Registro alterado com sucesso!'
             ]));
         } else {
             return print_r(json_encode([
